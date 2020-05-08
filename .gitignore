@@ -1,0 +1,6 @@
+__pycache__/
+htmlcov/
+icon_ai/
+dist/
+weather.iconset/
+.coverage

@@ -10,7 +10,7 @@ Weather resident app for Mac menu bar using Livedoor API
 * Livedoorの気象データから現在の天気を天気アイコンで表示
 
   shows current weather icon with getting Livedoor weather data
-* タイトルテキストのON,OFFを切り替える可能
+* タイトルテキストのON,OFFを切り替え可能
 
   can switch title text on or off
 

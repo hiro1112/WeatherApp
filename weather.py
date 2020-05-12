@@ -2,7 +2,6 @@
 import rumps
 import requests
 import xml.etree.ElementTree as et
-from subprocess import check_output
 
 
 # Livedoor weather api
@@ -25,7 +24,6 @@ TEMP = "data.tmp"
 class WeatherApp(rumps.App):
     def __init__(self, name):
         self.set_area()
-        self.net_flag = 0
         super(WeatherApp, self).__init__(
             "",
             menu=[
@@ -64,8 +62,7 @@ class WeatherApp(rumps.App):
 
     def set_area(self):
         self.area = {}
-        src = et.parse(XML).getroot()[0]
-        root = src.find("{http://weather.livedoor.com/%5C/ns/rss/2.0}source")
+        root = et.parse(XML).getroot()[0][12]
         for c in root.findall("pref"):
             for cc in c.findall("city"):
                 key = (c.attrib["title"], cc.attrib["title"])
@@ -174,18 +171,6 @@ class WeatherApp(rumps.App):
             self.icon = "icon/snowy_then_cloudy.png"
         elif tenki == "雪のち雨":
             self.icon = "icon/snowy_then_rainny.png"
-
-    @rumps.timer(2)
-    def check_network(self, _):
-        wifi = check_output([CMD, CMDOPT])
-        result = wifi.decode().replace(" ", "").split("\n")
-        if result[0] == "AirPort:Off" or result[4] == "state:init":
-            self.icon = "icon/gray_cloudy_then_sunny.png"
-            self.net_flag = 1
-        elif result[4] == "state:running":
-            if self.net_flag == 1:
-                self.show_logo()
-            self.net_flag = 0
 
 
 if __name__ == "__main__":

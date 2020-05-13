@@ -10,20 +10,12 @@ URL = 'http://weather.livedoor.com/forecast/webservice/json/v1'
 # Livedoor weather area xml
 XML = "primary_area.xml"
 
-# Network command
-CMD = "/System/Library/PrivateFrameworks/Apple80211.framework/"\
-      "Versions/Current/Resources/airport"
-
-# Network command option
-CMDOPT = "-I"
-
 # tempfile
 TEMP = "data.tmp"
 
 
 class WeatherApp(rumps.App):
     def __init__(self, name):
-        self.set_area()
         super(WeatherApp, self).__init__(
             "",
             menu=[
@@ -38,6 +30,7 @@ class WeatherApp(rumps.App):
         self.payload = {'city': self.area[(self.setted)]}
 
     def _build_area_submenu(self):
+        self.set_area()
         menu = rumps.MenuItem("Area")
         for (pref, area), code in self.area.items():
             def checkbox(sender):

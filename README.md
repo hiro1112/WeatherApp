@@ -18,8 +18,6 @@ Weather resident app for Mac menu bar using Livedoor API
 * python3
 * rumps
 * requests
-* xml
-* subprocess
 
 # Create App
 ```bash
